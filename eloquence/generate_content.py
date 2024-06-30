@@ -36,6 +36,7 @@ def gen_content(llm, attr: list) -> str:
     if example:
         prompt += f" Use this as an example <{example}>"
     
-    
     print("prompt:", prompt)
-    return ""
+    response = llm.invoke(prompt)
+    print("response:", response)
+    return response
