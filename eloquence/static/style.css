@@ -3,17 +3,31 @@ html, body{
     width: 100%;
     font-size: 18px;
 }
+#subject-group{
+    border: 1px solid #CCC;
+    border-radius: 15px;
+    padding: 1%;
+}
+.form-control{
+    border: none;
+    padding: 0;
+}
+.form-control:focus{
+    box-shadow: none;
+}
+textarea{
+    border: none;
+    outline: none;
+}
 #gen-form{
     width: 85%;
     margin: auto;
 }
-#gen-options{
-    border: 2px solid #ccc;
+.modal-content{
+    border: 2px solid #222;
     border-radius: 15px;
-    width: 40%;
-    padding: 1%;
+    padding: 3%;
     font-size: 14px;
-    display: none;
 }
 .select{
     font-size: 14px;

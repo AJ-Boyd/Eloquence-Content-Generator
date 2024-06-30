@@ -28,12 +28,20 @@ def gen_content(llm, attr: list) -> str:
     _type, subject, length, style, tone, example = attr
     
     # update llm attributes depending on user preferences
-    if length == "Very brief":
-        llm.num_predict = 50
-    elif length == "Short":
-        llm.num_predict = 70
-    elif length == "Lengthy":
-        llm.num_predict = 300
+    if _type != "Essay":
+        if length == "Very brief" or _type == "Pick-up line":
+            llm.num_predict = 50
+        elif length == "Short":
+            llm.num_predict = 70
+        elif length == "Lengthy":
+            llm.num_predict = 300
+    else:
+        if length == "Very brief":
+            llm.num_predict = 70
+        elif length == "Short":
+            llm.num_predict = 120
+        elif length == "Lengthy":
+            llm.num_predict = 1100
     
     prompt = f"""Only respond with the content you generate. The user has asked you to generate a {length} {_type} that is {llm.num_predict - 20} words long. The {_type} must follow this subject prompt: [{subject}]
     Make your writing style {style}"""
