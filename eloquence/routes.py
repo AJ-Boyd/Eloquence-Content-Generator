@@ -14,8 +14,7 @@ llm = config_LLM()
 
 @routes.route('/', methods=['POST', 'GET'])
 def home():
-    final_content = session.get("final_content", "")
-    return render_template("index.html", content=final_content)
+    return render_template("index.html")
 
 @routes.route('/generate', methods=["POST"])
 def submit():
@@ -51,6 +50,9 @@ def submit():
 
 
     print("attributes:", attributes)
-    content = gen_content(llm, attributes)
-    session["final_content"] = content
-    return redirect(url_for('routes.home'))
+    try:
+        content = gen_content(llm, attributes)
+        return jsonify({"status": 200, "content": content})
+    except Exception as e:
+        print(f"Error generating content: {e}")
+        return jsonify({"status": 400, "content": "Error 400"})

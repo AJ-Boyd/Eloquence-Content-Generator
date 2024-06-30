@@ -17,7 +17,6 @@ html, body{
 }
 textarea{
     border: none;
-    outline: none;
 }
 #gen-form{
     width: 85%;
@@ -39,4 +38,13 @@ textarea{
     border: 2px solid black;
     border-radius: 15px;
     padding: 1%;
+    display: none;
+}
+.loading-spinner {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
 }
