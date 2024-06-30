@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/6258c12eb7.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/6258c12eb7.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lancelot&display=swap" rel="stylesheet">
@@ -15,47 +16,57 @@
 <body>
     <div class="container mt-3">
         <h1>Eloquence</h1>
-        <form id= "generate-form" action="/generate" method='POST' enctype="multipart/form-data">
+        <form id= "gen-form" action="/generate" method='POST' enctype="multipart/form-data">
             <span>Content type</span>
             <select class="form-select-sm" id="type-content" name="type" required>
-                <option>E-mail</option>
+                <option>E-mail template</option>
                 <option>Essay</option>
                 <option>Character Dialoge</option>
                 <option>Poem</option>
                 <option>Pick-up line</option>
-            </select>
-            <br> <br>
-            <span>Length</span>
-            <select class="form-select-sm" id="length" name="length" required>
-                <option>Very brief</option>
-                <option>Short</option>
-                <option>Medium</option>
-                <option>Lengthy</option>
-            </select>
+            </select>   
             <br><br>
-            <span>Style</span>
-            <select class="form-select-sm" id="style" name="style" required>
-                <option>Casual</option>
-                <option>Technical</option>
-                <option>Formal</option>
-            </select>
-            <br><br>
-            <span>Tone (optional)</span>
-            <select class="form-select-sm" id="tone" name="tone">
-                <option>--</option>
-                <option>Friendly</option>
-                <option>Professional</option>
-                <option>Urgent</option>
-                <option>Encouraging</option>
-                <option>Passive</option>
-                <option>Apoligetic</option>
-            </select>
-            <br><br>
-            <span>Example (optional)</span>
-            <br>
-            <input type="file" id="example" class="form-control-file" name="example">
-            <br><br>
-            <button type="submit" class="btn btn-success">Generate</button>
+            <div class="form-group mt-3">
+                <textarea class="form-control" name="subject" placeholder="What would you like me to create?" rows="3" style="resize: none;" required></textarea>
+                <div class="d-flex justify-content-between mt-2">
+                    <button onclick="toggleOptions();"type="button" class="btn btn-secondary" id="optionsButton"><i class="fa-solid fa-gear"></i></button>
+                    <button type="submit" class="btn btn-success"><i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            <div id="gen-options" class="form-group mt-3">
+                <span class="option-head">Length</span>
+                <select class="form-select-sm select" id="length" name="length" required>
+                    <option>Very brief</option>
+                    <option>Short</option>
+                    <option>Medium</option>
+                    <option>Lengthy</option>
+                </select>
+                <br>
+                <span class="option-head">Style</span>
+                <select class="form-select-sm select" id="style" name="style" required>
+                    <option>Casual</option>
+                    <option>Technical</option>
+                    <option>Formal</option>
+                </select>
+                <br>
+                <span class="option-head">Tone (optional)</span>
+                <select class="form-select-sm select" id="tone" name="tone">
+                    <option>--</option>
+                    <option>Friendly</option>
+                    <option>Professional</option>
+                    <option>Urgent</option>
+                    <option>Encouraging</option>
+                    <option>Passive</option>
+                    <option>Apoligetic</option>
+                </select>
+                <br>
+                <span class="option-head">Example (optional)</span>
+                <input type="file" id="example" class="form-control-file" name="example">
+            </div>
         </form>
+
+        <div id="content" class = "container mt-3">
+            {{ content }}
+        </div>
     </div>
+    <script type="text/javascript" src="{{ url_for('static', filename='script.js') }}"></script>
 </body>

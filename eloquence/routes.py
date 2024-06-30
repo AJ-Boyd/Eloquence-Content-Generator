@@ -14,12 +14,14 @@ llm = config_LLM()
 
 @routes.route('/', methods=['POST', 'GET'])
 def home():
-    return render_template("index.html")
+    final_content = session.get("final_content", "")
+    return render_template("index.html", content=final_content)
 
 @routes.route('/generate', methods=["POST"])
 def submit():
     attributes = []
-    print("files:", request.files)
+    # print("form:", request.form)
+    # print("subject prompt:", request.form.get("subject"))
     for d in request.form:
         x = request.form[d]
         if request.form[d] == "--":
@@ -50,4 +52,5 @@ def submit():
 
     print("attributes:", attributes)
     content = gen_content(llm, attributes)
+    session["final_content"] = content
     return redirect(url_for('routes.home'))

@@ -1,4 +1,28 @@
 html, body{
     height: 100%;
     width: 100%;
+    font-size: 18px;
+}
+#gen-form{
+    width: 85%;
+    margin: auto;
+}
+#gen-options{
+    border: 2px solid #ccc;
+    border-radius: 15px;
+    width: 40%;
+    padding: 1%;
+    font-size: 14px;
+    display: none;
+}
+.select{
+    font-size: 14px;
+}
+.option-head{
+    font-weight: bold;
+}
+#content{
+    border: 2px solid black;
+    border-radius: 15px;
+    padding: 1%;
 }
