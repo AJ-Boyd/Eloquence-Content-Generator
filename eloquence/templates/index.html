@@ -1,0 +1,61 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/6258c12eb7.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lancelot&display=swap" rel="stylesheet">
+    <title>Eloquence--Easy AI Content Generator</title>
+</head>
+<body>
+    <div class="container mt-3">
+        <h1>Eloquence</h1>
+        <form id= "generate-form" action="/generate" method='POST' enctype="multipart/form-data">
+            <span>Content type</span>
+            <select class="form-select-sm" id="type-content" name="type" required>
+                <option>E-mail</option>
+                <option>Essay</option>
+                <option>Character Dialoge</option>
+                <option>Poem</option>
+                <option>Pick-up line</option>
+            </select>
+            <br> <br>
+            <span>Length</span>
+            <select class="form-select-sm" id="length" name="length" required>
+                <option>Very brief</option>
+                <option>Short</option>
+                <option>Medium</option>
+                <option>Lengthy</option>
+            </select>
+            <br><br>
+            <span>Style</span>
+            <select class="form-select-sm" id="style" name="style" required>
+                <option>Casual</option>
+                <option>Technical</option>
+                <option>Formal</option>
+            </select>
+            <br><br>
+            <span>Tone (optional)</span>
+            <select class="form-select-sm" id="tone" name="tone">
+                <option>--</option>
+                <option>Friendly</option>
+                <option>Professional</option>
+                <option>Urgent</option>
+                <option>Encouraging</option>
+                <option>Passive</option>
+                <option>Apoligetic</option>
+            </select>
+            <br><br>
+            <span>Example (optional)</span>
+            <br>
+            <input type="file" id="example" name="example">
+            <br><br>
+            <button type="submit" class="btn btn-success">Generate</button>
+        </form>
+    </div>
+</body>
