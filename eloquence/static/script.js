@@ -1,3 +1,6 @@
+
+const contentBtns = document.getElementById("content-btns")
+
 //special form submssion code
 document.addEventListener('DOMContentLoaded', function(){
     const form = document.getElementById('gen-form');
@@ -5,10 +8,12 @@ document.addEventListener('DOMContentLoaded', function(){
     const content = document.getElementById("content")
 
     form.addEventListener('submit', function(event){
+        
         event.preventDefault(); 
         document.getElementById('loading-spinner').style.display = 'block'; //start loading animation
         content.innerHTML = ""; //clear content
         content_container.style.display = "none";
+        contentBtns.style.display = "none";
 
         // get form data
         const formData = new FormData(form);
@@ -49,6 +54,8 @@ function typeWriter(i, text){
       setTimeout(function(){
         typeWriter(++i, text) 
       }, SPEED);
+    }else{
+        contentBtns.style.display = "block";
     }
 }
 

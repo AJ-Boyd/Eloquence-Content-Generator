@@ -45,7 +45,7 @@
             <br><br>
 
             <div id="subject-group" class="form-group">
-                <textarea class="form-control textarea" name="subject" placeholder="What would you like me to create?" rows="3" style="resize: none;" required></textarea>
+                <textarea class="form-control textarea" name="subject" placeholder="What would you like me to create?" rows="2" style="resize: none;" required></textarea>
                 <div class="d-flex justify-content-between mt-2">
                     <button id="optionsButton" type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#gen-options"><i class="fa-solid fa-gear"></i></button>
                     <button type="submit" class="btn custom-bg"><i class="fa-solid fa-arrow-right"></i></button>
@@ -120,9 +120,10 @@
         </div>
         <div id ="content-container">
             <div id="content" class = "container"></div>
-            <button onclick="copyContent();" id="copyContent" class="btn btn-secondary btn-sm">Copy <i class="fa-solid fa-copy"></i></button>
-            <button onclick="exportContent();" id="export" class="btn btn-sm"><u>Export as .txt file <i class="fa-solid fa-download"></i></u></button>
-            
+            <div id="content-btns">
+                <button onclick="copyContent();" id="copyContent" class="btn btn-secondary btn-sm">Copy <i class="fa-solid fa-copy"></i></button>
+                <button onclick="exportContent();" id="export" class="btn btn-sm"><u>Export as .txt file <i class="fa-solid fa-download"></i></u></button>
+            </div>
         </div>
     </div>
     <script type="text/javascript" src="{{ url_for('static', filename='script.js') }}"></script>
