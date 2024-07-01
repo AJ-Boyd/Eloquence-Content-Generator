@@ -10,28 +10,45 @@
     <script src="https://kit.fontawesome.com/6258c12eb7.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lancelot&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
     <title>Eloquence--Easy AI Content Generator</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+        .great-vibes-regular {
+            font-family: "Great Vibes", cursive;
+            font-weight: lighter;
+            font-style: normal;
+        }          
+        .head-color{
+            font-family: serif;
+            font-weight: bolder;
+            background: linear-gradient(to top, #ef3924 0%, #fbe4d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>    
 </head>
 <body>
-    <div class="container mt-3">
-        <h1>EloquenceAI</h1>
-        <form id= "gen-form" enctype="multipart/form-data">
+    <div id="app" class="container mt-3">
+        <h1><span class="great-vibes-regular">Eloquence</span><span class="head-color"><i>AI</i></span></h1>
+        <form id= "gen-form" class="mt-3" enctype="multipart/form-data"> 
             <span>Content type</span>
             <select class="form-select-sm" id="type-content" name="type" required>
+                <option>Text generation</option>
                 <option>E-mail template</option>
-                <option>Essay</option>
+                <option>Story</option>
                 <option>Character dialogue</option>
                 <option>Poem</option>
                 <option>Pick-up line</option>
+                <option>Reddit AITA</option>
             </select>   
             <br><br>
 
-            <div id="subject-group" class="form-group mt-3">
-                <textarea class="form-control" name="subject" placeholder="What would you like me to create?" rows="3" style="resize: none;" required></textarea>
+            <div id="subject-group" class="form-group">
+                <textarea class="form-control textarea" name="subject" placeholder="What would you like me to create?" rows="3" style="resize: none;" required></textarea>
                 <div class="d-flex justify-content-between mt-2">
                     <button id="optionsButton" type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#gen-options"><i class="fa-solid fa-gear"></i></button>
-                    <button type="submit" class="btn btn-success"><i class="fa-solid fa-arrow-right"></i></button>
+                    <button type="submit" class="btn custom-bg"><i class="fa-solid fa-arrow-right"></i></button>
                 </div>
             </div>
             <div id="gen-options" class="form-group mt-3 modal fade">
@@ -42,6 +59,18 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
                         
+                        <span class="option-head">Model</span>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input id="LLama3" type="radio"  class="form-check-input-inline" name="model" value="llama3" checked>
+                                <label class="form-check-label" for="LLama3">Standard</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input id="Mistral" type="radio"  class="form-check-input-inline" name="model" value="mistral">
+                                <label class="form-check-label" for="Mistral">Unguarded</label>
+                            </div>
+                        </div>
+                        <br>
                         <span class="option-head">Length</span>
                         <select class="form-select-sm select" id="length" name="length" required>
                             <option>Very brief</option>
@@ -56,7 +85,9 @@
                             <option>Technical</option>
                             <option>Formal</option>
                             <option>Literary</option>
-                            <option>Shakespeare</coption>
+                            <option>Shakespeare</option>
+                            <option>80's slang</option>
+                            <option>Smutty fanfiction</option>
                         </select>
                         <br>
                         <span class="option-head">Tone (optional)</span>
@@ -66,25 +97,31 @@
                             <option>Professional</option>
                             <option>Urgent</option>
                             <option>Encouraging</option>
-                            <option>Passive</option>
+                            <option>Direct</option>
                             <option>Apologetic</option>
+                            <option>Flirtatious</option>
+                            <option>Snarky/Sarcastic</option>
                         </select>
                         <br>
                         <span class="option-head">Example (optional)</span>
                         <input type="file" id="example" class="form-control-file" name="example">
+                        
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn custom-bg" data-bs-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
             </div>
         </form>
         <div id="loading-spinner" class="loading-spinner">
-            <div class="spinner-border spinner-grow-lg" role="status">
+            <div class="spinner-border" role="status">
                 <span class="visually-hidden">Loading...</span>
             </div>
         </div>
-        <div id="content" class = "container mt-3">
+        <div id ="content-container">
+            <div id="content" class = "container"></div>
+            <button onclick="copyContent();" id="copyContent" class="btn btn-secondary btn-sm">Copy <i class="fa-solid fa-copy"></i></button>
+            <button onclick="exportContent();" id="export" class="btn btn-sm"><u>Export as .txt file <i class="fa-solid fa-download"></i></u></button>
             
         </div>
     </div>

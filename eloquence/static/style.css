@@ -2,11 +2,17 @@ html, body{
     height: 100%;
     width: 100%;
     font-size: 18px;
+    color: #232232;
+    background-color: #FFFAF0;
+}
+#app{
+    padding-bottom: 1%;
 }
 #subject-group{
     border: 1px solid #CCC;
     border-radius: 15px;
-    padding: 1%;
+    padding: 1.5%;
+    background-color: #fbe4d4;
 }
 .form-control{
     border: none;
@@ -15,8 +21,12 @@ html, body{
 .form-control:focus{
     box-shadow: none;
 }
-textarea{
+.textarea{
     border: none;
+    background-color: #fbe4d4;
+}
+.textarea:focus{
+    background-color: #fbe4d4;
 }
 #gen-form{
     width: 85%;
@@ -27,6 +37,15 @@ textarea{
     border-radius: 15px;
     padding: 3%;
     font-size: 14px;
+    background-color: #fbe4d4;
+}
+.custom-bg{
+    background-color: #ef3924;
+    color: #FFFAF0;
+}
+.custom-bg:hover{
+    background-color: #d52410;
+    color: #FFFAF0;
 }
 .select{
     font-size: 14px;
@@ -38,13 +57,31 @@ textarea{
     border: 2px solid black;
     border-radius: 15px;
     padding: 1%;
+    white-space: pre-wrap;
+    max-height: 50%;
+    overflow-y: auto;
+    margin-bottom: 2.5%;
+}
+#content-container{
     display: none;
+    margin: 2%;
 }
 .loading-spinner {
-    display: none; /* Hidden by default */
+    display: none;
     position: fixed;
-    top: 50%;
+    top: 48%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-48%, -48%);
     z-index: 9999;
+    color: #d52410;
+    font-size: 1.5em;
+    border-radius: 5px;
+    padding: 1%;
+    background-color: #CCC;
+}
+.form-check{
+    display: inline;
+}
+#export{
+    color: #ef3924;
 }
