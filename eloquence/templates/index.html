@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
-    <title>Eloquence--Easy AI Content Generator</title>
+    <title>EloquenceAI--Simple AI Content Generator</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
         .great-vibes-regular {
@@ -48,8 +48,8 @@
                 <textarea class="form-control textarea" name="subject" placeholder="What would you like me to create?" rows="2" style="resize: none;" required></textarea>
                 <div class="d-flex justify-content-between mt-2">
                     <button id="optionsButton" type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#gen-options"><i class="fa-solid fa-gear"></i></button>
-                    <button type="submit" class="btn custom-bg"><i class="fa-solid fa-arrow-right"></i></button>
-                </div>
+                        <button type="submit" class="btn custom-bg"><i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
             </div>
             <div id="gen-options" class="form-group mt-3 modal fade">
                 <div class="modal-dialog">
@@ -120,9 +120,57 @@
         </div>
         <div id ="content-container">
             <div id="content" class = "container"></div>
-            <div id="content-btns">
-                <button onclick="copyContent();" id="copyContent" class="btn btn-secondary btn-sm">Copy <i class="fa-solid fa-copy"></i></button>
-                <button onclick="exportContent();" id="export" class="btn btn-sm"><u>Export as .txt file <i class="fa-solid fa-download"></i></u></button>
+            <div id="content-btns" class="d-flex justify-content-between">
+                <button id = "augment" class = "btn btn-sm custom-bg" data-bs-toggle="modal" data-bs-target="#augment-modal">Augment Response</button>
+                <div>
+                    <button onclick="copyContent();" id="copyContent" class="btn btn-secondary btn-sm">Copy <i class="fa-solid fa-copy"></i></button>
+                    <button onclick="exportContent();" id="export" class="btn btn-sm"><u>Export as .txt file <i class="fa-solid fa-download"></i></u></button>
+                </div>
+            </div>
+        </div>
+        <div id="augment-modal" class="form-group mt-3 modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content"> 
+                    <div class="modal-header">
+                        <h4>Augment Response</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <form onsubmit="submitAugmentation(event);" id="augment-form" class="mt-3" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <span class="option-head">Adjust Length</span>
+                            <select class="form-select-sm select" id="augment-length" name="length">
+                                <option>--</option>
+                                <option>Make it longer</option>
+                                <option>Make it shorter</option>
+                            </select>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <span class="option-head">Adjust Tone</span>
+                            <select class="form-select-sm select" id="tone" name="tone">
+                                <option>--</option>
+                                <option>Casual</option>
+                                <option>Friendly</option>
+                                <option>Professional/Formal</option>
+                                <option>Urgent</option>
+                                <option>Encouraging</option>
+                                <option>Direct</option>
+                                <option>Apologetic</option>
+                                <option>Flirtatious</option>
+                                <option>Snarky/Sarcastic</option>
+                            </select>
+                        </div>
+                        <br>
+                        <div class="form-group spec">
+                            <textarea oninput="autoResizeTextarea(this);" id="augment-textarea"class="form-control textarea" name="subject" placeholder="What can I change?" rows="1" style="resize: none;"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button form="augment-form" type="submit" class="btn custom-bg" data-bs-dismiss="modal">Regenerate <i class="fa-solid fa-arrow-rotate-right"></i></button>
+                        </div>
+                    </form>
+                    
+                    
+                </div>
             </div>
         </div>
     </div>

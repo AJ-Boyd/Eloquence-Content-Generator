@@ -11,6 +11,7 @@ import os
 
 routes = Blueprint("routes", __name__)
 llm = config_LLM()
+# content = ""
 
 @routes.route('/', methods=['POST', 'GET'])
 def home():
@@ -18,6 +19,7 @@ def home():
 
 @routes.route('/generate', methods=["POST"])
 def submit():
+    global content
     attributes = []
     # print("form:", request.form)
     # print("subject prompt:", request.form.get("subject"))
@@ -56,3 +58,26 @@ def submit():
     except Exception as e:
         print(f"Error generating content: {e}")
         return jsonify({"status": 400, "content": "Error 400"})
+    
+@routes.route('/augment', methods=["POST"])
+def augment():
+    global content
+    changes = []
+    print("req:", request.form)
+    for c in request.form:
+        x = request.form[c]
+        if x == "--" or x == "":
+            x = None
+        changes.append(x)   
+    
+    if any(element is not None for element in changes):
+        augmented_content = aug_content(changes)
+        content = augmented_content
+        print("new content:", content)
+        print("changes:", changes) 
+        return jsonify({"status": 200, "content": augmented_content})
+    else:
+        print("no changes to be made")
+        return jsonify({"status": 400, "error": "You must have at least one revision to make in order to re-generate content."})
+    
+        

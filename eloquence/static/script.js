@@ -1,14 +1,13 @@
 
 const contentBtns = document.getElementById("content-btns")
+const form = document.getElementById('gen-form');
+const form2 = document.getElementById('augment-form');
+const content_container = document.getElementById("content-container");
+const content = document.getElementById("content")
 
 //special form submssion code
 document.addEventListener('DOMContentLoaded', function(){
-    const form = document.getElementById('gen-form');
-    const content_container = document.getElementById("content-container");
-    const content = document.getElementById("content")
-
     form.addEventListener('submit', function(event){
-        
         event.preventDefault(); 
         document.getElementById('loading-spinner').style.display = 'block'; //start loading animation
         content.innerHTML = ""; //clear content
@@ -17,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
         // get form data
         const formData = new FormData(form);
-
+        
         // make post request to generate route
         fetch('/generate', {
             method: 'POST',
@@ -87,3 +86,44 @@ function exportContent(){
 function changeElemText(elem, text){
     elem.innerHTML = text;
 }
+
+function autoResizeTextarea(textarea) {
+    // textarea.style.height = 'auto';
+    textarea.style.height = textarea.scrollHeight + 'px';
+}
+
+function submitAugmentation(event){
+    event.preventDefault(); 
+    document.getElementById('loading-spinner').style.display = 'block'; //start loading animation
+    content_container.style.display = "none";
+    contentBtns.style.display = "none";
+
+    // get form data
+    formData = new FormData(form2);
+    formData.append("content", content.innerHTML)
+    content.innerHTML = ""; //clear content
+
+    // make post request to generate route
+    fetch('/augment', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        //get response
+        document.getElementById('loading-spinner').style.display = 'none'; //finish loading animation
+        console.log("STATUS:", data.status)
+        
+        //display generated content
+        msg = data.content;
+        content_container.style.display = "block";
+        console.log(msg)
+        typeWriter(0, msg)
+    })
+    .catch(error => {
+        //if error
+        document.getElementById('loading-spinner').style.display = 'none';
+        content_container.style.display = "block";
+        alert('An error occurred: ' + error.message); //display error message
+    });
+} 

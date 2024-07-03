@@ -8,14 +8,13 @@ html, body{
 #app{
     padding-bottom: 1%;
 }
-#subject-group{
+#subject-group, .spec{
     border: 1px solid #CCC;
     border-radius: 15px;
     padding: 1.5%;
     background-color: #fbe4d4;
 }
 .form-control{
-    border: none;
     padding: 0;
 }
 .form-control:focus{
@@ -87,4 +86,11 @@ html, body{
 }
 #export{
     color: #ef3924;
+}
+#augment{
+    background-color: #ef3924;
+    color: white;
+}
+#augment-textarea{
+    max-height: 200px
 }

@@ -11,9 +11,10 @@ from langchain_core.prompts import PromptTemplate
 import re, random
 
 SYS_PROMPT = "You are EloquenceAI, a tool designed to generate text-based content such as emails, stories, and fictional dialogue according to the user's prompt and preferences. All content must have proper grammar"
-
+LLM = 0
 def config_LLM():
-    llm = Ollama(
+    global LLM
+    LLM = Ollama(
         model = "llama3",
         verbose = False,
         temperature = 1.3,
@@ -23,14 +24,14 @@ def config_LLM():
         num_predict = -2
     )
     
-    return llm
+    return LLM
 
 def gen_content(llm, attr: list) -> str:
-    _type, subject, model, length, style, tone, example = attr
+    global LLM
     
     # update llm attributes depending on user preferences
+    _type, subject, model, length, style, tone, example = attr
     llm.model = model
-    
     if "Story" == _type or "AITA" in _type:
         if length == "Very brief":
             approx_length = 70
@@ -50,7 +51,7 @@ def gen_content(llm, attr: list) -> str:
         else:
             approx_length = 150
     
-    
+    LLM = llm
     prompt = f"""Only respond with the content you generate. The user has asked you to generate a {length} {_type} that is {approx_length - 40} or fewer words long. The {_type} is to be centered around this general subject: [{subject}]
     Make your writing style {style}. """
     
@@ -62,5 +63,25 @@ def gen_content(llm, attr: list) -> str:
     prompt += "Do not include a subject line or title unless prompted otherwise."
     print("prompt:", prompt)
     response = llm.invoke(prompt)
+    print("response:", response)
+    return response
+
+def aug_content(changes: list):
+    global LLM
+    length, tone, added_prompt, content = changes
+    
+    prompt = "Think before acting and only respond with the content you generate. Re-create the quoted text but add the following changes: "
+    
+    if length:
+        prompt += f"{length} "
+    if tone:
+        prompt += f"make the text's tone more {tone} "
+    if added_prompt:
+        prompt += f"{added_prompt}"
+    
+    prompt += f".\n Here is the text '{content}'"
+    print("augemented prompt:", prompt)
+    # response = "test"
+    response = LLM.invoke(prompt)
     print("response:", response)
     return response
